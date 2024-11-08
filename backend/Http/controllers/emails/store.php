@@ -24,15 +24,16 @@ function storeEmail($email)
 {
   $config = require base_path('config.php');
   $db = new Database($config['database'], $config['username'], $config['password']);
-  $query = "insert into users (email, password) values (:email, :password)";
+  $query = "insert into emails (email, owner, project) values (:email, :owner, :project)";
   $db->query($query, [
     ':email' => $email,
-    ':password' => password_hash('123456', PASSWORD_BCRYPT)
+    ':owner' => 1,
+    ':project' => 1
   ]);
 
-  $userId = $db->lastInsertId();
-  $query = "SELECT * FROM users WHERE id = :id";
-  return $db->query($query, [':id' => $userId])->find();
+  $lastInsertedId = $db->lastInsertId();
+  $query = "SELECT * FROM emails WHERE id = :id";
+  return $db->query($query, [':id' => $lastInsertedId])->find();
 }
 
 if ($form->errors()) $response['errors'] = $form->errors();

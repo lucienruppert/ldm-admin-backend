@@ -7,7 +7,7 @@ use Core\Response;
 
 $json = file_get_contents('php://input');
 $input = json_decode($json, true);
-$id = $input['id'];
+$email = $input['id'];
 
 $config = require base_path('config.php');
 $db = new Database($config['database'], $config['username'], $config['password']);
@@ -18,12 +18,12 @@ if (is_array($input)) {
   try {
     saveEvent($db, $input);
     if ($input['categories']) {
-      deleteCategoriesByEvent($db, $id);
-      storeCategories($db, $input['categories'], $id);
+      deleteCategoriesByEvent($db, $email);
+      storeCategories($db, $input['categories'], $email);
     }
     if ($input['extraFees']) {
-      deleteExtraFeesByEvent($db, $id);
-      storeExtraFees($db, $input['extraFees'], $id);
+      deleteExtraFeesByEvent($db, $email);
+      storeExtraFees($db, $input['extraFees'], $email);
     }
 
     $db->commit();

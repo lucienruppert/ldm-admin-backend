@@ -7,7 +7,7 @@ use Core\Database;
 $json = file_get_contents('php://input');
 $input = json_decode($json, true);
 
-$id = $input['email'];
+$email = $input['email'];
 
 $config = require base_path('config.php');
 $db = new Database($config['database'], $config['username'], $config['password']);
@@ -26,7 +26,7 @@ $query = "
     WHERE e.owner = :email
 ";
 
-$players = $db->query($query, [':email' => $id])->get();
+$players = $db->query($query, [':email' => $email])->get();
 
 $events = [];
 
@@ -63,7 +63,7 @@ $categoryQuery = "
     JOIN events e ON ec.eventId = e.id
     WHERE e.owner = :email
 ";
-$categoryResults = $db->query($categoryQuery, [':email' => $id])->get();
+$categoryResults = $db->query($categoryQuery, [':email' => $email])->get();
 
 // Add categories to the respective events
 foreach ($categoryResults as $row) {
@@ -93,7 +93,7 @@ $feeQuery = "
     JOIN events e ON ef.eventId = e.id
     WHERE e.owner = :email
 ";
-$feeResults = $db->query($feeQuery, [':email' => $id])->get();
+$feeResults = $db->query($feeQuery, [':email' => $email])->get();
 
 // Add extra fees to the respective events
 foreach ($feeResults as $row) {

@@ -14,14 +14,14 @@ if (is_array($input)) {
   $db->beginTransaction();
 
   try {
-    $id = saveEvent($db, $input);
+    $email = saveEvent($db, $input);
     if ($input['categories'])
-      storeCategories($db, $input['categories'], $id);
+      storeCategories($db, $input['categories'], $email);
     if ($input['extraFees'])
-      storeExtraFees($db, $input['extraFees'], $id);
+      storeExtraFees($db, $input['extraFees'], $email);
 
     $db->commit();
-    $response = ['id' => $id];
+    $response = ['id' => $email];
     echo json_encode($response);
   } catch (Exception $e) {
 

@@ -19,8 +19,8 @@ if (is_array($input)) {
 
     if (!$result) {
 
-      $id = storePreregistrant($db, $input);
-      storeCategories($db, $input['categories'], $id);
+      $email = storePreregistrant($db, $input);
+      storeCategories($db, $input['categories'], $email);
     } else {
       storeCategories($db, $input['categories'], $result['id']);
     }

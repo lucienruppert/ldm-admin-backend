@@ -8,15 +8,15 @@ use Core\Authenticator;
 use Http\Forms\LoginForm;
 use Core\Response;
 
-$id = $_POST['email'];
+$email = $_POST['email'];
 $password = $_POST['password'];
 //dd(password_hash($password, PASSWORD_BCRYPT));
 
 $form = new LoginForm();
 $authenticator = new Authenticator();
 
-if ($form->validate($id, $password)) {
-  if (!($authenticator)->attempt($id, $password)) {
+if ($form->validate($email, $password)) {
+  if (!($authenticator)->attempt($email, $password)) {
     $form->error('A megadott adatokhoz nem tartozik felhasználó.');
     http_response_code(Response::UNAUTHORIZED);
   }

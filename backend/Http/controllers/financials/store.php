@@ -18,10 +18,10 @@ if (is_array($input)) {
     $result = $db->query($query, $params)->find();
 
     if (!$result) {
-      $id = storePreregistrant($db, $input);
-      storeCategories($db, $input['categories'], $id);
+      $email = storePreregistrant($db, $input);
+      storeCategories($db, $input['categories'], $email);
       if ($input['extraFees'])
-        storeExtraFees($db, $input['extraFees'], $id);
+        storeExtraFees($db, $input['extraFees'], $email);
     } else {
       updatePayables($db, $input, $result['id']);
       deletePayablesCategories($db, $result['id']);

@@ -7,13 +7,13 @@ use Core\Database;
 $json = file_get_contents('php://input');
 $input = json_decode($json, true);
 
-$id = intval($input['eventId']);
+$email = intval($input['eventId']);
 
 $config = require base_path('config.php');
 $db = new Database($config['database'], $config['username'], $config['password']);
 
 $query = "SELECT * FROM payables WHERE eventId = :eventId";
-$payables = $db->query($query, [':eventId' => $id])->get();
+$payables = $db->query($query, [':eventId' => $email])->get();
 
 foreach ($payables as $index => $payable) {
   $query = "SELECT * FROM payablesCategories WHERE payablesId = :payablesId";

@@ -9,6 +9,7 @@ $router->post("$path/login", '/session/store.php');
 $router->post("$path/logout", '/session/destroy.php');
 $router->post("$path/register", 'registration/store.php');
 // $router->post("$path/register", 'registration/store.php')->only('superadmin');
+$router->post("$path/email/add", 'emails/store.php');
 
 $router->post("$path/players/filename", '/players/filename.php');
 $router->post("$path/players/filename-update", '/players/update.php');
